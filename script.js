@@ -1,40 +1,42 @@
-console.log("Hello World");
-function getComputerChoice() {
-    let angka = Math.random();
-    if (angka < 0.33) {
-        return "rock";
-    } else if (angka < 0.66) {
-        return "paper";
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
+    function playRound(humanChoice, computerChoice) {
+        humanChoice = humanChoice.toLowerCase();
+
+        if (humanChoice === computerChoice) {
+            console.log("Seri! Kalian sama-sama pilih " + humanChoice);
+        } else if (
+            (humanChoice === "rock" && computerChoice === "scissors") ||
+            (humanChoice === "paper" && computerChoice === "rock") ||
+            (humanChoice === "scissors" && computerChoice === "paper")
+        ) {
+            console.log("Kamu menang! " + humanChoice + " mengalahkan " + computerChoice);
+            humanScore++;
+        } else {
+            console.log("Kamu kalah! " + humanChoice + " melawan " + computerChoice);
+            computerScore++;
+        }
+
+        console.log("Skor kamu " + humanScore + " - komputer " + computerScore);
     }
-    return "scissors";
-}
 
-function getHumanChoice() {
-    let jawaban = prompt("Pilih: rock,paper or scicor?");
-    return jawaban;
-}
-let humanScore = 0;
-let computerScore = 0;
+    // 5 ronde
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
 
-function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    if (humanChoice === computerChoice) {
-        console.log("Seri! kalian sama-sama pilih " + humanChoice);
-    } else if (
-        (humanChoice === "rock" && computerChoice === "scissors") ||
-        (humanChoice === "paper" && computerChoice === "rock") ||
-        (humanChoice === "scissors" && computerChoice === "paper")
-    ) {
-        console.log("kamu menang! " + humanChoice + " mengalahkan " + computerChoice);
-    
+    // Pengumuman pemenang
+    if (humanScore > computerScore) {
+        console.log("🎉 KAMU MENANG GAME INI!");
+    } else if (humanScore < computerScore) {
+        console.log("😢 Komputer menang game ini.");
     } else {
-        console.log("kamu kalah! " + humanChoice + " melawan " + computerChoice);
+        console.log("🤝 Hasil akhir seri!");
     }
 }
 
-//===main satu ronde ====
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
-console.log("Skor: kamu " + humanScore +" - Komputer" + computerScore);
+playGame();
